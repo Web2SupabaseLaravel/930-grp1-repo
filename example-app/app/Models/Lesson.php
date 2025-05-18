@@ -14,8 +14,10 @@ class Lesson extends Model
     public $incrementing=false;
     public $timestamps =true;
 
-    // public function completions(){
-    //     return $this->hasMany(LessonComplition::class,'lesson_id','lesson_id');
-    // }
+
+        protected $fillable=[
+        'lesson_id','course_id','title','content_type','content_url','order_number','created_at'
+    ];
+
 
 }

@@ -18,7 +18,7 @@ Route::view('profile', 'profile')
 Route::get('/course/{course_id}/lessons', [LessonController::class, 'index'])->name('lessons.index');
 Route::get('/lesson/{lesson_id}/{course_id}', [LessonController::class, 'show'])->name('lesson.show');
 Route::get('/lessons/{id}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
-Route::put('/lessons/{lesson_id}{course_id}', [LessonController::class, 'update'])->name('lessons.update');
+Route::put('/lessons/{lesson_id}/{course_id}', [LessonController::class, 'update'])->name('lessons.update');
 
 Route::get('/lessoncompleted/{id}/edit',[LessonCompletionConroller::class,'show'])->name('lessonCompletion.show');
 Route::post('/storelessons',[LessonCompletionConroller::class,'store'])->name('lessonCompletion.store');

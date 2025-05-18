@@ -21,7 +21,24 @@ class EnrollmentController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'lesson_id'=>'required',
+                'course_id'=>'required',
+                'progress_percent'=>'required'
+            ]
+            );
+
+        $newernrollment=new Enrollment();
+        $newernrollment->lesson_id=$request->lesson_id;
+        $newernrollment->course_id=$request->course_id;
+        $newernrollment->progress_percent=$request->progress_percent;
+        $newernrollment.save();
+
+        return response()->json([
+            'newdata'=>$newernrollment
+        ]);
+
     }
 
 

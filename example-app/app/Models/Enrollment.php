@@ -13,4 +13,9 @@ class Enrollment extends Model
     public $timestamps=false;
     public $incrementing=false;
 
+    protected $fillable=[
+        'student_id','course_id','progress_percent'
+    ];
+
+
 }

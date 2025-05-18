@@ -15,8 +15,10 @@ class LessonCompletion  extends Model
     public $incrementing=false;
     public $timestamps =false;
 
+    protected $fillable=[
+        'id','student_id','lesson_id','course_id'
+    ];
 
-    // public function lessons(){
-    //     return $this->belongsTo(Lesson::class,'lesson_id','lesson_id');
-    // }
+
+
 }//Table has PK of id so no need to mention it here
