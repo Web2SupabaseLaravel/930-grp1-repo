@@ -17,5 +17,9 @@ class Enrollment extends Model
         'student_id','course_id','progress_percent'
     ];
 
+        //public function completions()
+    //{
+        //return $this->belongsTo(Course::class, 'course_id', 'course_id');
+    //}
 
 }

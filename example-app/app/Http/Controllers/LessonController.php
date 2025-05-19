@@ -10,7 +10,7 @@ class LessonController extends Controller
 {
     public function index($course_id)
     {
-$student_id = '0524c29d-8233-4189-82a0-3cfb46042eb4';
+    $student_id = '0524c29d-8233-4189-82a0-3cfb46042eb4';
         $lessons = Lesson::where('course_id', $course_id)->get();
         $completed = LessonCompletion::where('course_id', $course_id)
             ->where('student_id', $student_id)
@@ -44,7 +44,7 @@ $student_id = '0524c29d-8233-4189-82a0-3cfb46042eb4';
         return view('showlesson', [
             'lesson' => $lesson,
             'next' => $next,
-            'prev' => $prev
+            'prev' => $prev,
         ]);
     }
 }

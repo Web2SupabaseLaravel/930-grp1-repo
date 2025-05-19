@@ -10,20 +10,23 @@
 
 
     <form method="POST" action="{{ url('/storelessons') }}">
-        @csrf
+        @csrf 
         <input type="hidden" name="lesson_id" value="{{ $lesson->lesson_id }}">
         <input type="hidden" name="course_id" value="{{ $lesson->course_id }}">
         <button type="submit">Mark as Completed</button>
     </form>
 
-    <p><a href="{{ url('/course/'.$lesson->course_id.'/lessons') }}">⬅ Back to Lessons</a></p>
+    <p><a href="{{ url('/course/'.$lesson->course_id.'/lessons') }}"> Back to Lessons</a></p>
 
     @if($prev)
-        <a href="{{ url('/lesson/'.$prev->lesson_id.'/'.$prev->course_id) }}">← Previous</a>
+        <a href="{{ url('/lesson/'.$prev->lesson_id.'/'.$prev->course_id) }}"> Previous</a>
     @endif
+    {{-- 
+        <a href="{{ url('/quiz/' . $lesson->lesson_id . '/' . $course_id) }}">Attempt Quiz</a>
+    --}}
 
     @if($next)
-        <a href="{{ url('/lesson/'.$next->lesson_id.'/'.$next->course_id) }}" style="margin-left: 20px;">Next →</a>
+        <a href="{{ url('/lesson/'.$next->lesson_id.'/'.$next->course_id) }}" style="margin-left: 20px;">Next </a>
     @endif
 
 </body>
