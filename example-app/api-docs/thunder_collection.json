@@ -1,0 +1,114 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "Full API Collection",
+  "dateExported": "2025-05-22T00:00:00Z",
+  "version": "1.1",
+  "requests": [
+    {
+      "name": "Get All Lesson Completions",
+      "method": "GET",
+      "url": "http://localhost:8000/lessoncompletions"
+    },
+    {
+      "name": "Get One Lesson Completion",
+      "method": "GET",
+      "url": "http://localhost:8000/lessoncompletions/0f286a79-9668-439b-a61b-6a7986065353"
+    },
+    {
+      "name": "Mark Lesson as Completed",
+      "method": "POST",
+      "url": "http://localhost:8000/storelessons",
+      "body": {
+        "lesson_id": "2161a4f8-cb1d-4182-b8b4-9a634a15105e",
+        "course_id": "f2849c27-30f5-40b4-9cdd-87521090bdbb"
+      }
+    },
+    {
+      "name": "Update Lesson Completion",
+      "method": "PUT",
+      "url": "http://localhost:8000/lessoncompletions/0f286a79-9668-439b-a61b-6a7986065353",
+      "body": {
+        "lesson_id": "02f9a3e4-24aa-4670-a53a-8888cfd6618a",
+        "course_id": "02f9a3e4-24aa-4670-a53a-8888cfd6618a",
+        "student_id": "0524c29d-8233-4189-82a0-3cfb46042eb4"
+      }
+    },
+    {
+      "name": "Delete Lesson Completion",
+      "method": "DELETE",
+      "url": "http://localhost:8000/lessoncompletions/0f286a79-9668-439b-a61b-6a7986065353"
+    },
+    {
+      "name": "Get All Lessons for Course",
+      "method": "GET",
+      "url": "http://localhost:8000/course/02f9a3e4-24aa-4670-a53a-8888cfd6618a/lessons"
+    },
+    {
+      "name": "Get One Lesson in Course",
+      "method": "GET",
+      "url": "http://localhost:8000/lesson/5bd6c6cc-1121-4175-84b8-5ae412c93844/02f9a3e4-24aa-4670-a53a-8888cfd6618a"
+    },
+    {
+      "name": "Register User",
+      "method": "POST",
+      "url": "http://localhost:8000/api/register",
+      "body": {
+        "name": "user_11",
+        "email": "user_11@example.com",
+        "password": "password123",
+        "password_confirmation": "password123"
+      }
+    },
+    {
+      "name": "Login User",
+      "method": "POST",
+      "url": "http://localhost:8000/api/login",
+      "body": {
+        "email": "user_3@example.com",
+        "password": "password123"
+      }
+    },
+    {
+      "name": "Get All Users",
+      "method": "GET",
+      "url": "http://localhost:8000/api/users"
+    },
+    {
+      "name": "Admin Get Users",
+      "method": "GET",
+      "url": "http://localhost:8000/admin/users"
+    },
+    {
+      "name": "Admin Create User",
+      "method": "POST",
+      "url": "http://localhost:8000/admin/users",
+      "body": {
+        "email": "new_admin@example.com",
+        "password": "strongPass123"
+      }
+    },
+    {
+      "name": "Admin Update User",
+      "method": "PUT",
+      "url": "http://localhost:8000/admin/users/8faf2226-c270-4be8-89c7-ffc60a4bf1eb",
+      "body": {
+        "email": "updated_admin@example.com"
+      }
+    },
+    {
+      "name": "Admin Delete User",
+      "method": "DELETE",
+      "url": "http://localhost:8000/admin/users/8faf2226-c270-4be8-89c7-ffc60a4bf1eb"
+    },
+    {
+      "name": "Admin Report: Enrollments",
+      "method": "GET",
+      "url": "http://localhost:8000/admin/reports/enrollments"
+    },
+    {
+      "name": "Admin Report: Popular Courses",
+      "method": "GET",
+      "url": "http://localhost:8000/admin/reports/popular-courses"
+    }
+  ]
+}
