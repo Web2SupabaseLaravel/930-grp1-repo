@@ -17,7 +17,6 @@ Route::get('/test', function () {
 
 
 Route::get('/lastestcourses', [LastestcourseController::class, 'apiIndex']);
-Route::get('/lastestcourses?category=programming', [LastestcourseController::class, 'apiIndex']);
 Route::get('/enrollments', [EnrollmentController::class, 'index']);
 Route::post('/enrollments', [EnrollmentController::class, 'store']);
 Route::get('/enrollments/{student_id}/{course_id}', [EnrollmentController::class, 'show']);

@@ -8,10 +8,10 @@ class LastestcourseController extends Controller
 
 public function apiIndex(Request $request)
 {
-    $category = $request->input('category');
+    $category = $request->input('catagory');  // خذ القيمة من الرابط
 
     if ($category) {
-        $courses = Course::where('category', $category)
+        $courses = Course::where('catagory', $category)
                          ->orderBy('id', 'desc')
                          ->get();
     } else {
