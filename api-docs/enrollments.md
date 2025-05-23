@@ -52,27 +52,25 @@ Endpoints related to retrieving the courses the student is enrolled in and the a
 |-----------|------|----------|--------------------|
 | user_id   | uuid | Yes      | ID of the user     |
 | course_id | uuid | Yes      | ID of the course   |
-<!--
-Body request example: 
-{
-  "user_id": "0524c29d-8233-4189-82a0-3cfb46042eb4",
-  "course_id": "ed2a9535-bfaa-44c0-b574-5adb62275dda"
-}
--->
+
+//Body request example: 
+//{
+  //"user_id": "0524c29d-8233-4189-82a0-3cfb46042eb4",
+  //"course_id": "ed2a9535-bfaa-44c0-b574-5adb62275dda"}
+
 ## Error Response (409 Conflict)
 ```json
 {
   "message": "Already enrolled in this course."
 }
 
-<!--
-Body request example:
-With different course id 
-{
-  "user_id": "0524c29d-8233-4189-82a0-3cfb46042eb4",
-  "course_id": "be203a34-34d2-4692-b207-d6a2f39faeda"
-}
--->
+
+//Body request example:
+//With different course id 
+//{
+ // "user_id": "0524c29d-8233-4189-82a0-3cfb46042eb4",
+  //"course_id": "be203a34-34d2-4692-b207-d6a2f39faeda"}
+
 
 ## Success Response (201 Created)
 ```json
@@ -89,10 +87,9 @@ With different course id
 
 > Retrieve details of a specific enrolled course by course ID.
 
-<!--
-Example
-/api/enrollments/be203a34-34d2-4692-b207-d6a2f39faeda 
--->
+
+// Example /api/enrollments/be203a34-34d2-4692-b207-d6a2f39faeda 
+
 
 ### Path Parameters
 
@@ -124,10 +121,9 @@ Example
 
 ## Unenroll from a Course
 **DELETE** `/api/enrollments/{student_id}/{course_id}`
-<!--
-Example
-/api/enrollments/0524c29d-8233-4189-82a0-3cfb46042eb4/be203a34-34d2-4692-b207-d6a2f39faeda
--->
+
+//Example /api/enrollments/0524c29d-8233-4189-82a0-3cfb46042eb4/be203a34-34d2-4692-b207-d6a2f39faeda
+
 ### Path Parameters
 
 | Name       | Type | Required | Description         |
