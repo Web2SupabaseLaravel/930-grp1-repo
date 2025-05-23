@@ -42,7 +42,7 @@ class CourseController extends Controller
             'catagory' => 'required|string|max:100',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'instructor_id' => 'required|exists:users,id',
+            'instructor_id' => 'uuid|required|exists:instructors,user_id',
             'learning_objectives' => 'required|string',
         ]);
 
@@ -54,7 +54,7 @@ class CourseController extends Controller
 
         $course = new Course($request->all());
 $course->id = Str::uuid(); // Generate a unique ID for the course
-$course->managed_by = auth()->id() ?? 1;
+$course->managed_by = auth()->id() ?? '8faf2226-c270-4be8-89c7-ffc60a4bf1eb';
 $course->save();
 
         return redirect()->route('courses.index')
