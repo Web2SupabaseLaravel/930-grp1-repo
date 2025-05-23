@@ -6,13 +6,14 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class CoursesController extends Controller
+
+class CourseController extends Controller
 {
     /**
      * Display a listing of the courses.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -23,7 +24,6 @@ class CoursesController extends Controller
     /**
      * Show the form for creating a new course.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -34,8 +34,6 @@ class CoursesController extends Controller
     /**
      * Store a newly created course in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -55,8 +53,9 @@ class CoursesController extends Controller
         }
 
         $course = new Course($request->all());
-        $course->managed_by = auth()->id() ?? 1; // Fallback to ID 1 if not authenticated
-        $course->save();
+$course->id = Str::uuid(); // Generate a unique ID for the course
+$course->managed_by = auth()->id() ?? 1;
+$course->save();
 
         return redirect()->route('courses.index')
             ->with('success', 'Course created successfully.');
@@ -65,8 +64,6 @@ class CoursesController extends Controller
     /**
      * Display the specified course.
      *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
      */
     public function show(Course $course)
     {
@@ -88,9 +85,6 @@ class CoursesController extends Controller
     /**
      * Update the specified course in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Course $course)
     {
@@ -118,8 +112,6 @@ class CoursesController extends Controller
     /**
      * Remove the specified course from storage.
      *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Course $course)
     {

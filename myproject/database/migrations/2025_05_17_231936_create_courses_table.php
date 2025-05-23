@@ -12,8 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary(); // UUID بدل من id() العادي
+            $table->string('title');
+            $table->string('catagory');
+            $table->text('description');
+            $table->decimal('price', 8, 2);
+            $table->uuid('instructor_id'); // UUID من جدول users
+            $table->text('learning_objectives');
+            $table->uuid('managed_by'); // UUID للمدير
+
             $table->timestamps();
+
+            // العلاقات
+            $table->foreign('instructor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('managed_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

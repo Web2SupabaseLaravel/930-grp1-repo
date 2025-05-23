@@ -4,20 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
 
 class Course extends Model
 {
     use HasFactory;
+    use HasUuids;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     *
-     */
+    protected $table = 'courses';
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
     public $timestamps = false;
+    public $incrementing = false;
      protected $fillable = [
         'title',
-        'catagory', // Note: This follows the table schema you provided
+        'catagory',
         'description',
         'price',
         'instructor_id',
