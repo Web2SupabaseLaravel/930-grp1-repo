@@ -73,8 +73,6 @@ $course->save();
     /**
      * Show the form for editing the specified course.
      *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
      */
     public function edit(Course $course)
     {
