@@ -109,6 +109,45 @@
       "name": "Admin Report: Popular Courses",
       "method": "GET",
       "url": "http://localhost:8000/admin/reports/popular-courses"
+    },
+  
+    {
+      "name": "Get All Enrollments",
+      "method": "GET",
+      "url": "http://127.0.0.1:8000/api/enrollments"
+    },
+    {
+      "name": "Get all courses in a specific category",
+      "method": "GET",
+      "url": "http://127.0.0.1:8000/api/lastestcoursescatagory?category=Category_5"
+    },
+    {
+      "name": "Enroll in a Course",
+      "method": "POST",
+      "url": "http://127.0.0.1:8000/api/enrollments",
+      "body": {
+        "type": "json",
+        "raw": {
+          "user_id": "0524c29d-8233-4189-82a0-3cfb46042eb4",
+          "course_id": "ed2a9535-bfaa-44c0-b574-5adb62275dda"
+        }
+      }
+    },
+    {
+      "name": "Unenroll from a Course",
+      "method": "DELETE",
+      "url": "http://127.0.0.1:8000/api/enrollments/0524c29d-8233-4189-82a0-3cfb46042eb4/be203a34-34d2-4692-b207-d6a2f39faeda"
+    },
+    {
+      "name": "Get Specific Enrollment",
+      "method": "GET",
+      "url": "http://127.0.0.1:8000/api/enrollments/be203a34-34d2-4692-b207-d6a2f39faeda"
+    },
+    {
+      "name": "Get All Lastest course",
+      "method": "GET",
+      "url": "http://127.0.0.1:8000/api/lastestcourses"
     }
   ]
 }
+  

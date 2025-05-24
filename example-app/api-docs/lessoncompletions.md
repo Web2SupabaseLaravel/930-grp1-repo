@@ -5,8 +5,11 @@
 
 ##  Headers (for all requests)
 ```
-Content-Type: application/json
-```
+### Headers For All
+| Name          | Required | Description                       |
+|---------------|----------|-----------------------------------|
+| Content-Type  | Yes      | Must be `application/json`        |
+| Accept        | Yes      | Must be `application/json`        |```
 
 ---
 

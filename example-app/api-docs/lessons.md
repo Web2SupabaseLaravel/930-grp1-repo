@@ -9,7 +9,11 @@ Endpoints related to retrieving lessons for a course and viewing individual less
 
 ### Headers For All
 ```
-Content-Type: application/json
+### Headers For All
+| Name          | Required | Description                       |
+|---------------|----------|-----------------------------------|
+| Content-Type  | Yes      | Must be `application/json`        |
+| Accept        | Yes      | Must be `application/json`        |
 ```
 ------------
 
