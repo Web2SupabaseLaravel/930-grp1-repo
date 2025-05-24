@@ -33,13 +33,13 @@ This section will show how errors are returned and what status codes mean
  These are mosly included in Laravel by default
 
 ## Avaliable Resources
--[Authentication](/api-docs/auth.md)
--[Courses](/api-docs/courses.md)
--[Enrollments](/api-docs/enrollments.md)
--[LessonCompletions](/api-docs/lessoncompletions.md)
--[Lessons](/api-docs/lessons.md)
--[notifications](/api-docs/notifications.md)
--[Users](/api-docs/users.md)
+-[Authentication](./api-docs/auth.md)
+-[Courses](./api-docs/courses.md)
+-[Enrollments](./api-docs/enrollments.md)
+-[LessonCompletions](./api-docs/lessoncompletions.md)
+-[Lessons](./api-docs/lessons.md)
+-[notifications](./api-docs/notifications.md)
+-[Users](./api-docs/users.md)
 
 ## For Thunder_Collection
 -Please check thunder_collection.json file for the thnderclient collection.
