@@ -42,7 +42,7 @@ This section will show how errors are returned and what status codes mean
 - [Users](./users.md)
 
 ## For Thunder_Collection
--Please check thunder_collection.json file for the thnderclient collection.
+-Please check [thunder_collection](./thunder_collection.json) file for the thnderclient collection.
 
 ## For Reflection
--Please check reflection.md for the final reflection of the project.
+-Please check [reflection](./reflection.md) for the final reflection of the project.
