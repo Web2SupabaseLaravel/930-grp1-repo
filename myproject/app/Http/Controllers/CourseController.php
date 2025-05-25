@@ -91,7 +91,7 @@ $course->save();
             'catagory' => 'required|string|max:100',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'instructor_id' => 'uuid|required|exists:users,user_id',
+            'instructor_id' => 'uuid|required|exists:instructors,user_id',
             'learning_objectives' => 'required|string',
         ]);
 
