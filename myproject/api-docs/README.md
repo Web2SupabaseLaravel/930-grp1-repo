@@ -18,17 +18,18 @@ for abdallah
 
 ## Error Handling
 This section will show how errors are returned and what status codes mean
- Code  Meaning              
-----------------------------
- 200   OK                   
- 201   Created
- 400   Bad Request             
- 401   Unauthorized         
- 404   Not Found            
- 422   Validation Error
- 419   Request Failed
- 429   Too Many Requests
- 500   Server Error
+
+| Code | Meaning             |
+|------|---------------------|
+| 200  | OK                  |
+| 201  | Created             |
+| 400  | Bad Request         |
+| 401  | Unauthorized        |
+| 404  | Not Found           |
+| 422  | Validation Error    |
+| 419  | Request Failed      |
+| 429  | Too Many Requests   |
+| 500  | Server Error        |
 
  These are mosly included in Laravel by default
 
