@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Assuming React Router
+import { useParams, useNavigate } from 'react-router-dom'; 
 import CourseService from '../../services/CourseService';
 import Message from './Message';
-import '../../App.css'; // Import global styles
+import '../../App.css'; 
 
 const CourseDetail = () => {
     const { id: courseId } = useParams();
@@ -35,17 +35,16 @@ const CourseDetail = () => {
     }
 
     if (!course) {
-        return <div>Course not found.</div>; // Or redirect / show specific message
+        return <div>Course not found.</div>; 
     }
 
-    // Format price for display
     const displayPrice = typeof course.price === 'number' 
         ? `$${course.price.toFixed(2)}` 
         : (course.price ? `$${course.price}` : 'N/A');
 
     return (
         <div className="course-detail-container">
-            {/* Title can be here or handled by App layout */}
+            {/* Title TODO*/}
             {/* <h2 className="detail-title">Course Details</h2> */}
             
             <Message message={message.text} type={message.type} />
@@ -59,9 +58,8 @@ const CourseDetail = () => {
                     <label>Instructor ID:</label>
                     <p>{course.instructor_id || 'N/A'}</p>
                 </div>
-                {/* Course Duration omitted */}
                 <div className="detail-item">
-                    <label>Category:</label> {/* Spelling matches backend */}
+                    <label>Category:</label> 
                     <p>{course.catagory || 'N/A'}</p>
                 </div>
                 <div className="detail-item">
@@ -79,9 +77,8 @@ const CourseDetail = () => {
             </div>
 
             <div className="detail-actions">
-                 {/* Add Edit/Delete buttons if needed, or just a back button */}
                  <button onClick={() => navigate('/courses')} className="button button-secondary">Back to List</button>
-                 {/* Example: Add Edit button */}
+                 {/* TODO: Add Edit button */}
                  {/* <button onClick={() => navigate(`/courses/edit/${course.id}`)} className="button button-update">Edit</button> */}
             </div>
         </div>

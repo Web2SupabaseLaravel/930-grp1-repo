@@ -1,115 +1,3 @@
-// import React from 'react';
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import { useState, useEffect } from 'react';    
-// //import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-// import api from '../../API'; // Import the API instance
-// import { Link } from 'react-router-dom';
-// export default function CourseForm() {
-//   const [course, setCourse] = useState({
-//     title: '',
-//     description: '',
-//     duration: '',
-//     price: '',
-//     image: null,
-//   });
-
-//   const navigate = useNavigate();
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setCourse({ ...course, [name]: value });
-//   };
-
-//   const handleFileChange = (e) => {
-//     setCourse({ ...course, image: e.target.files[0] });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-    
-//     const formData = new FormData();
-//     Object.keys(course).forEach(key => {
-//       formData.append(key, course[key]);
-//     });
-
-//     try {
-//       await api.post('/courses', formData, {
-//         headers: {
-//           'Content-Type': 'multipart/form-data',
-//         },
-//       });
-//       navigate('/courses/list'); // Redirect to the course list after successful creation
-//     } catch (error) {
-//       console.error('Error creating course:', error);
-//       // Handle error (e.g., show a notification or alert)
-//     }
-//   };
-
-//   return (
-//     <div className="container mt-5">
-//       <h2>Create Course</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div className="mb-3">
-//           <label className="form-label">Title</label>
-//           <input
-//             type="text"
-//             className="form-control"
-//             name="title"
-//             value={course.title}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <div className="mb-3">
-//           <label className="form-label">Description</label>
-//           <textarea
-//             className="form-control"
-//             name="description"
-//             value={course.description}
-//             onChange={handleChange}
-//             required
-//           ></textarea>
-//         </div>
-//         <div className="mb-3">
-//           <label className="form-label">Duration</label>
-//           <input
-//             type="text"
-//             className="form-control"
-//             name="duration"
-//             value={course.duration}
-//             onChange={handleChange}
-//             required
-//           />
-//         </div>
-//         <div className="mb-3">
-//           <label className="form-label">Price</label>
-//           <input
-//             type="number"
-//             className="form-control"
-//             name="price"
-//             value={course.price}
-//             onChange={handleChange}
-//             required
-//             />
-//         </div>
-//         <div className="mb-3">
-//           <label className="form-label">Image</label>
-//           <input
-//             type="file"
-//             className="form-control"
-//             name="image"
-//             onChange={handleFileChange}
-//             accept="image/*"
-//             required
-//           />
-//         </div>
-//         <button type="submit" className="btn btn-primary">Create Course</button>
-//         <Link to="/courses/list" className="btn btn-secondary ms-2">Back to Course List</Link>
-//         </form>
-//     </div>
-//   );
-// }
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Assuming React Router for ID and navigation
 import CourseService from '../../services/CourseService';
@@ -123,12 +11,11 @@ const CourseForm = () => {
 
     const [formData, setFormData] = useState({
         title: '',
-        instructor_id: '', // Expecting a UUID string
-        catagory: '', // Matches backend spelling
+        instructor_id: '', 
+        catagory: '', 
         price: '',
         learning_objectives: '',
         description: ''
-        // course_duration is omitted as it's not in the backend API
     });
     const [message, setMessage] = useState({ text: null, type: 'info' });
     const [errors, setErrors] = useState({});
@@ -139,7 +26,6 @@ const CourseForm = () => {
             setLoading(true);
             CourseService.getCourseById(courseId)
                 .then(response => {
-                    // Ensure price is treated correctly (backend sends numeric/string)
                     const courseData = { ...response.data, price: String(response.data.price) }; 
                     setFormData(courseData);
                     setLoading(false);
@@ -155,7 +41,6 @@ const CourseForm = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-        // Clear specific error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: null }));
         }
@@ -167,7 +52,6 @@ const CourseForm = () => {
         setMessage({ text: null, type: 'info' });
         setErrors({});
 
-        // Ensure price is numeric before sending
         const dataToSend = { ...formData, price: parseFloat(formData.price) };
 
         try {
@@ -178,20 +62,15 @@ const CourseForm = () => {
             } else {
                 response = await CourseService.createCourse(dataToSend);
                 setMessage({ text: response.data.message || 'Course created successfully!', type: 'success' });
-                // Optionally clear form after successful creation
-                // setFormData({ title: '', instructor_id: '', catagory: '', price: '', learning_objectives: '', description: '' });
             }
-            // Navigate back to list after a short delay to show message
-            setTimeout(() => navigate('/courses'), 1500); // Adjust path as needed
+            setTimeout(() => navigate('/courses'), 1500); 
 
         } catch (error) {
             console.error("Error submitting form:", error);
             if (error.response && error.response.status === 422) {
-                // Handle validation errors
                 setErrors(error.response.data.errors);
                 setMessage({ text: 'Please fix the errors below.', type: 'error' });
             } else {
-                // Handle other errors (network, server, etc.)
                 setMessage({ text: `An error occurred: ${error.message || 'Please try again.'}`, type: 'error' });
             }
         } finally {
@@ -238,11 +117,10 @@ const CourseForm = () => {
                     </div>
                 </div>
 
-                {/* Course Duration omitted as per backend spec */}
 
                 <div className="form-row">
                      <div className="form-group">
-                        <label htmlFor="catagory">Category:</label> {/* Spelling matches backend */}
+                        <label htmlFor="catagory">Category:</label> 
                         <input
                             type="text"
                             id="catagory"

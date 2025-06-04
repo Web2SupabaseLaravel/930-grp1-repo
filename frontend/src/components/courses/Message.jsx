@@ -7,7 +7,6 @@ const Message = ({ message, type }) => {
         return null;
     }
 
-    // Determine the class name based on the message type for styling
     const messageClass = type === 'error' ? 'message-error' :
                          type === 'success' ? 'message-success' :
                          'message-info'; // Default or other types

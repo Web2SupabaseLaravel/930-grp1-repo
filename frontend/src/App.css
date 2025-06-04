@@ -297,7 +297,7 @@ body {
     margin-top: 20px;
 }
 
-/* Responsive adjustments (optional example) */
+/* Responsive */
 @media (max-width: 768px) {
     .form-row {
         flex-direction: column;
@@ -315,4 +315,3 @@ body {
         justify-content: flex-end;
     }
 }
-
