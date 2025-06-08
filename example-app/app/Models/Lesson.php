@@ -12,7 +12,8 @@ class Lesson extends Model
     protected $keyType = 'string';
     public $timestamps = true;
     const UPDATED_AT = null;
-
+    
+    // Make sure all fields are properly fillable
     protected $fillable = [
         'lesson_id',
         'course_id',
@@ -21,7 +22,11 @@ class Lesson extends Model
         'content_url',
         'order_number',
         'created_at',
+        'updated_at',
     ];
+    
+    // Ensure guarded is empty to allow mass assignment
+    protected $guarded = [];
 
    public function course()
 {
