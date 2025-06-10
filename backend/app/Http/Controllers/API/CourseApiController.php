@@ -38,7 +38,7 @@ class CourseApiController extends Controller
 
         $course = new Course($request->all());
         $course->id = Str::uuid();
-        $course->managed_by = auth()->id() ?? '8faf2226-c270-4be8-89c7-ffc60a4bf1eb';
+        $course->managed_by = optional(auth()->user())->id ?? '8faf2226-c270-4be8-89c7-ffc60a4bf1eb';
         $course->save();
 
         return response()->json([
