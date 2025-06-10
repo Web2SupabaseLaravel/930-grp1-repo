@@ -1,4 +1,3 @@
-// src/components/LatestCoursesPage.jsx
 import React, { useState } from 'react';
 import CategoryFilter from './CategoryFilter';
 import LatestCourses from './LatestCourses';
