@@ -1,195 +1,209 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Assuming React Router for ID and navigation
-import CourseService from '../../services/CourseService';
-import Message from './Message';
-import '../../App.css';
+import axios from 'axios';
+import MessageAlert from './MessageAlert';
+
 const CourseForm = () => {
-    // Get course ID from URL parameters if editing
-    const { id: courseId } = useParams();
-    const navigate = useNavigate();
-    const isEditing = Boolean(courseId);
+  const [course, setCourse] = useState({
+    title: '',
+    instructor_id: '',
+    duration: '',
+    price: '',
+    category: '',
+    learning_objectives: '',
+    description: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState({ text: '', type: '' });
+  const [isEdit, setIsEdit] = useState(false);
+  const [courseId, setCourseId] = useState(null);
+  const token = localStorage.getItem('token'); // Assuming token is stored here
 
-    const [formData, setFormData] = useState({
-        title: '',
-        instructor_id: '', 
-        catagory: '', 
-        price: '',
-        learning_objectives: '',
-        description: ''
-    });
-    const [message, setMessage] = useState({ text: null, type: 'info' });
-    const [errors, setErrors] = useState({});
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        if (isEditing) {
-            setLoading(true);
-            CourseService.getCourseById(courseId)
-                .then(response => {
-                    const courseData = { ...response.data, price: String(response.data.price) }; 
-                    setFormData(courseData);
-                    setLoading(false);
-                })
-                .catch(error => {
-                    console.error("Error fetching course details:", error);
-                    setMessage({ text: 'Failed to load course data for editing.', type: 'error' });
-                    setLoading(false);
-                });
-        }
-    }, [courseId, isEditing]);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-        if (errors[name]) {
-            setErrors(prev => ({ ...prev, [name]: null }));
-        }
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setMessage({ text: null, type: 'info' });
-        setErrors({});
-
-        const dataToSend = { ...formData, price: parseFloat(formData.price) };
-
-        try {
-            let response;
-            if (isEditing) {
-                response = await CourseService.updateCourse(courseId, dataToSend);
-                setMessage({ text: response.data.message || 'Course updated successfully!', type: 'success' });
-            } else {
-                response = await CourseService.createCourse(dataToSend);
-                setMessage({ text: response.data.message || 'Course created successfully!', type: 'success' });
-            }
-            setTimeout(() => navigate('/courses'), 1500); 
-
-        } catch (error) {
-            console.error("Error submitting form:", error);
-            if (error.response && error.response.status === 422) {
-                setErrors(error.response.data.errors);
-                setMessage({ text: 'Please fix the errors below.', type: 'error' });
-            } else {
-                setMessage({ text: `An error occurred: ${error.message || 'Please try again.'}`, type: 'error' });
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    if (loading && isEditing) {
-        return <div>Loading course details...</div>;
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const editId = urlParams.get('edit');
+    if (editId) {
+      setIsEdit(true);
+      setCourseId(editId);
+      fetchCourse(editId);
     }
+  }, []);
 
-    return (
-        <div className="course-form-container">
-            <h2 className="form-title">{isEditing ? 'Edit Course' : 'Add New Course'}</h2>
-            <Message message={message.text} type={message.type} />
+  const fetchCourse = async (id) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/courses/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCourse(response.data);
+    } catch {
+      setMessage({ text: 'Failed to fetch course details.', type: 'error' });
+    }
+  };
 
-            <form onSubmit={handleSubmit} className="course-form">
-                <div className="form-row">
-                    <div className="form-group">
-                        <label htmlFor="title">Course Title:</label>
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            value={formData.title}
-                            onChange={handleChange}
-                            placeholder="Enter course title"
-                            className={errors.title ? 'input-error' : ''}
-                        />
-                        {errors.title && <span className="error-text">{errors.title[0]}</span>}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="instructor_id">Instructor ID:</label>
-                        <input
-                            type="text"
-                            id="instructor_id"
-                            name="instructor_id"
-                            value={formData.instructor_id}
-                            onChange={handleChange}
-                            placeholder="Enter instructor UUID"
-                            className={errors.instructor_id ? 'input-error' : ''}
-                        />
-                        {errors.instructor_id && <span className="error-text">{errors.instructor_id[0]}</span>}
-                    </div>
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCourse({ ...course, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (isEdit) {
+        await axios.put(`http://127.0.0.1:8000/api/courses/${courseId}`, course, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setMessage({ text: 'Course updated successfully', type: 'success' });
+      } else {
+        await axios.post('http://127.0.0.1:8000/api/courses', course, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setMessage({ text: 'Course created successfully', type: 'success' });
+        setCourse({ title: '', instructor_id: '', duration: '', price: '', category: '', learning_objectives: '', description: '' });
+      }
+      setErrors({});
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        setErrors(error.response.data.errors);
+      } else {
+        setMessage({ text: 'An error occurred. Please ensure you are logged in.', type: 'error' });
+      }
+    }
+  };
+
+  return (
+    <div className="container" style={{ backgroundColor: '#F8F9FA', minHeight: '100vh' }}>
+      {message.text && <MessageAlert message={message} onClose={() => setMessage({ text: '', type: '' })} />}
+      <div className="row justify-content-center">
+        <div className="col-md-10">
+          <div className="card shadow-sm">
+            <div className="card-header bg-white py-3">
+              <h4 className="mb-0" style={{ color: '#3498DB' }}>{isEdit ? 'Edit Course' : 'Add Course'}</h4>
+            </div>
+            <div className="card-body p-4">
+              <form onSubmit={handleSubmit}>
+                <div className="row mb-4">
+                  <div className="col-md-6">
+                    <label htmlFor="title" className="text-primary fw-bold mb-2" style={{ color: '#3498DB' }}>Course Title:</label>
+                    <input
+                      id="title"
+                      type="text"
+                      className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                      name="title"
+                      value={course.title}
+                      onChange={handleChange}
+                      placeholder="Data structure"
+                      required
+                    />
+                    {errors.title && <div className="invalid-feedback" style={{ color: '#E74C3C' }}>{errors.title[0]}</div>}
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="instructor_id" className="text-primary fw-bold mb-2" style={{ color: '#3498DB' }}>Instructor ID:</label>
+                    <input
+                      id="instructor_id"
+                      type="text"
+                      className={`form-control ${errors.instructor_id ? 'is-invalid' : ''}`}
+                      name="instructor_id"
+                      value={course.instructor_id}
+                      onChange={handleChange}
+                      placeholder="Enter Instructor ID"
+                      required
+                    />
+                    {errors.instructor_id && <div className="invalid-feedback" style={{ color: '#E74C3C' }}>{errors.instructor_id[0]}</div>}
+                  </div>
                 </div>
-
-
-                <div className="form-row">
-                     <div className="form-group">
-                        <label htmlFor="catagory">Category:</label> 
-                        <input
-                            type="text"
-                            id="catagory"
-                            name="catagory"
-                            value={formData.catagory}
-                            onChange={handleChange}
-                            placeholder="e.g., Data Science, Web Development"
-                            className={errors.catagory ? 'input-error' : ''}
-                        />
-                        {errors.catagory && <span className="error-text">{errors.catagory[0]}</span>}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="price">Price:</label>
-                        <input
-                            type="number"
-                            id="price"
-                            name="price"
-                            value={formData.price}
-                            onChange={handleChange}
-                            placeholder="e.g., 150"
-                            step="0.01" 
-                            min="0"
-                            className={errors.price ? 'input-error' : ''}
-                        />
-                         {errors.price && <span className="error-text">{errors.price[0]}</span>}
-                    </div>
-                </div>
-
-                <div className="form-group form-group-full">
-                    <label htmlFor="learning_objectives">Learning Objectives:</label>
-                    <textarea
-                        id="learning_objectives"
-                        name="learning_objectives"
-                        value={formData.learning_objectives}
+                <div className="row mb-4">
+                  <div className="col-md-6">
+                    <label htmlFor="duration" className="text-primary fw-bold mb-2" style={{ color: '#3498DB' }}>Course duration:</label>
+                    <input
+                      id="duration"
+                      type="number"
+                      className="form-control"
+                      name="duration"
+                      value={course.duration}
+                      onChange={handleChange}
+                      placeholder="In months"
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="price" className="text-primary fw-bold mb-2" style={{ color: '#3498DB' }}>Price:</label>
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text" style={{ backgroundColor: '#F8F9FA', color: '#7F8C8D' }}>$</span>
+                      </div>
+                      <input
+                        id="price"
+                        type="number"
+                        className={`form-control ${errors.price ? 'is-invalid' : ''}`}
+                        name="price"
+                        value={course.price}
                         onChange={handleChange}
-                        placeholder="List key learning objectives"
-                        rows="4"
-                        className={errors.learning_objectives ? 'input-error' : ''}
-                    ></textarea>
-                    {errors.learning_objectives && <span className="error-text">{errors.learning_objectives[0]}</span>}
+                        placeholder="150"
+                        required
+                        min="0"
+                        step="0.01"
+                      />
+                      {errors.price && <div className="invalid-feedback" style={{ color: '#E74C3C' }}>{errors.price[0]}</div>}
+                    </div>
+                  </div>
                 </div>
-
-                <div className="form-group form-group-full">
-                    <label htmlFor="description">Course Description:</label>
+                <div className="row mb-4">
+                  <div className="col-md-6">
+                    <label htmlFor="category" className="text-primary fw-bold mb-2" style={{ color: '#3498DB' }}>Category:</label>
+                    <input
+                      id="category"
+                      type="text"
+                      className={`form-control ${errors.category ? 'is-invalid' : ''}`}
+                      name="category"
+                      value={course.category}
+                      onChange={handleChange}
+                      placeholder="Data Science"
+                      required
+                    />
+                    {errors.category && <div className="invalid-feedback" style={{ color: '#E74C3C' }}>{errors.category[0]}</div>}
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="learning_objectives" className="text-primary fw-bold mb-2" style={{ color: '#3498DB' }}>Learning Objectives:</label>
                     <textarea
-                        id="description"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        placeholder="Detailed course description"
-                        rows="6"
-                        className={errors.description ? 'input-error' : ''}
-                    ></textarea>
-                    {errors.description && <span className="error-text">{errors.description[0]}</span>}
+                      id="learning_objectives"
+                      className={`form-control ${errors.learning_objectives ? 'is-invalid' : ''}`}
+                      name="learning_objectives"
+                      value={course.learning_objectives}
+                      onChange={handleChange}
+                      placeholder="Learn key data structures (arrays, stacks, queues, trees)."
+                      required
+                    />
+                    {errors.learning_objectives && <div className="invalid-feedback" style={{ color: '#E74C3C' }}>{errors.learning_objectives[0]}</div>}
+                  </div>
                 </div>
-
-                <div className="form-actions">
-                    <button type="submit" className="button button-submit" disabled={loading}>
-                        {loading ? 'Submitting...' : (isEditing ? 'Update Course' : 'Add Course')}
+                <div className="row mb-4">
+                  <div className="col-md-12">
+                    <label htmlFor="description" className="text-primary fw-bold mb-2" style={{ color: '#3498DB' }}>Course description:</label>
+                    <textarea
+                      id="description"
+                      className={`form-control ${errors.description ? 'is-invalid' : ''}`}
+                      name="description"
+                      value={course.description}
+                      onChange={handleChange}
+                      rows="4"
+                      placeholder="This course introduces students to fundamental data structures used in computer science..."
+                      required
+                    />
+                    {errors.description && <div className="invalid-feedback" style={{ color: '#E74C3C' }}>{errors.description[0]}</div>}
+                  </div>
+                </div>
+                <div className="row mb-0">
+                  <div className="col-md-12 text-center">
+                    <button type="submit" className="btn px-5 py-2 rounded-pill" style={{ backgroundColor: '#3498DB', color: 'white', borderColor: '#3498DB' }}>
+                      Submit
                     </button>
-                    <button type="button" className="button button-cancel" onClick={() => navigate('/courses')} disabled={loading}>
-                        Cancel
-                    </button> 
+                  </div>
                 </div>
-            </form>
+              </form>
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default CourseForm;
-
-// This code is a React component for a course form that can be used for both creating and editing courses.

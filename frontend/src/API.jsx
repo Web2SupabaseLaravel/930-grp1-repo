@@ -1,27 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import CourseList from './components/courses/CourseList';
-import CourseForm from './components/courses/CourseForm';
-import CourseDetail from './components/courses/CourseDetail'; 
-import './App.css';
+import axios from 'axios';
 
-function App() {
-    return (
-        <Router>
-            <div className="container"> 
-                <Routes>
-                    <Route path="/" element={<Navigate replace to="/courses" />} />
-                    
-                    <Route path="/courses" element={<CourseList />} />
-                    
-                    <Route path="/courses/new" element={<CourseForm />} />
-                    
-                    <Route path="/courses/edit/:id" element={<CourseForm />} />
-                </Routes>
-            </div>
-        </Router>
-    );
-}
+const api = axios.create({
+  baseURL: 'http://127.0.0.1:8000/api/',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token') || ''}` // Assuming token is stored in localStorage
+  }
+});
 
-export default App;
+export const fetchCourses = () => api.get('courses');
+export const fetchCourse = (id) => api.get(`courses/${id}`);
+export const createCourse = (data) => api.post('courses', data);
+export const updateCourse = (id, data) => api.put(`courses/${id}`, data);
+export const deleteCourse = (id) => api.delete(`courses/${id}`);
 
+export default api;

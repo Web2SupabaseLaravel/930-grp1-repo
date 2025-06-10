@@ -1,27 +1,66 @@
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import CourseList from './components/courses/CourseList';
+// import CourseForm from './components/courses/CourseForm';
+// import CourseDetails from './components/courses/CourseDetails'; 
+// import './App.css';
+
+// const App = () => {
+//     return (
+//         <Router>
+//     <Switch>
+//         <Route exact path="/" component={CourseList} />
+//         <Route path="/courses/create" component={CourseForm} />
+//         <Route path="/courses/:id" component={CourseDetails} />
+//       </Switch>
+//         </Router>
+//     );
+// }
+
+// export default App;
+
+// import React from 'react';
+//     import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+//     import CourseList from './components/courses/CourseList';
+//     import './App.css';
+
+//     const App = () => {
+//       return (
+//         <div>
+//           <h1>Test Render</h1> {/* Add this to verify rendering */}
+//           <Router>
+//             <Switch>
+//               <Route exact path="/" component={CourseList} />
+//               <Route path="/courses/create" component={() => <h2>Create Page</h2>} />
+//               <Route path="/courses/:id" component={() => <h2>Details Page</h2>} />
+//             </Switch>
+//           </Router>
+//         </div>
+//       );
+//     };
+
+//     export default App;
+
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import CourseList from './components/courses/CourseList';
-import CourseForm from './components/courses/CourseForm';
-import CourseDetail from './components/courses/CourseDetail'; 
-import './App.css';
+  import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+  import CourseList from './components/CourseList.jsx';
+  import CourseForm from './components/CourseForm.jsx';
+  import CourseDetails from './components/CourseDetails.jsx';
+  import './App.css';
 
-function App() {
+  const App = () => {
     return (
+      <div>
+        <h1>Test Render</h1> {/* Temporary test */}
         <Router>
-            <div className="container"> 
-                <Routes>
-                    <Route path="/" element={<Navigate replace to="/courses" />} />
-                    
-                    <Route path="/courses" element={<CourseList />} />
-                    
-                    <Route path="/courses/new" element={<CourseForm />} />
-                    
-                    <Route path="/courses/edit/:id" element={<CourseForm />} />
-                </Routes>
-            </div>
+          <Switch>
+            <Route exact path="/" component={CourseList} />
+            <Route path="/courses/create" component={CourseForm} />
+            <Route path="/courses/:id" component={CourseDetails} />
+          </Switch>
         </Router>
+      </div>
     );
-}
+  };
 
-export default App;
-
+  export default App;
