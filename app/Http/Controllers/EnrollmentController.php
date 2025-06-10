@@ -3,23 +3,28 @@
 namespace App\Http\Controllers;
 use App\Models\enrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class enrollmentController extends Controller
 {
      /**
      * عرض جميع الكورسات التي سجل بها الطالب.
      */
-    public function index(Request $request)
-    {
-        $studentId = "0524c29d-8233-4189-82a0-3cfb46042eb4";
+public function index(Request $request)
+{
+    $studentId = $request->query('student_id');
 
-        $enrollments = Enrollment::where('student_id', $studentId)
-            ->whereHas('course') // التأكد من وجود الكورس
-            ->with('course') // جلب بيانات الكورس
+    if ($studentId) {
+        return Enrollment::with('course')
+            ->where('student_id', $studentId)
             ->get();
-
-        return response()->json($enrollments, 200);
     }
+
+   
+    return Enrollment::with('course')->get();
+}
+
+
 
     public function store(Request $request)
     {
@@ -62,6 +67,28 @@ public function show(Request $request, $student_id, $course_id)
     $enrollment->load('course');
 
     return response()->json($enrollment, 200);
+}
+
+
+
+public function update(Request $request, $student_id, $course_id)
+{
+    $request->validate([
+        'progress_percent' => 'required|integer|min:0|max:100'
+    ]);
+
+    $enrollment = Enrollment::where('student_id', $student_id)
+                            ->where('course_id', $course_id)
+                            ->first();
+
+    if (!$enrollment) {
+        return response()->json(['message' => 'Enrollment not found'], 404);
+    }
+
+    $enrollment->progress_percent = $request->progress_percent;
+    $enrollment->save();
+
+    return response()->json($enrollment);
 }
 
 
