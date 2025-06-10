@@ -38,7 +38,7 @@ const OnlineCoursesHeader = () => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+          background-image: url('../assets/background.png');
           background-size: cover;
           background-position: center;
           z-index: -1;
