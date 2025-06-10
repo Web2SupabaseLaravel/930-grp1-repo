@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-container {
+  position: relative;
+  width: 900px;
+  height: 600px;
+  display: flex;
+  overflow: hidden;
+  background-color: #f5f7fa;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+
+.form-section {
+  width: 100%;
+  display: flex;
+  height: 100%;
+}
+
+.form-box {
+  width: 50%;
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+  gap: 15px;
+}
+
+.logo {
+  width: 100px;
+  align-self: center;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
+
+.btn {
+  padding: 10px;
+  background-color: #2b9ef4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn.transparent {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.forgot {
+  font-size: 14px;
+  color: #2b9ef4;
+  text-decoration: none;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+
+.panel-section {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #2b9ef4;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s ease-in-out;
+  z-index: 10;
+}
+
+.panel-content {
+  text-align: center;
+  padding: 40px;
+}
+
+.panel-content h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.panel-content p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+
+.auth-container.register-mode .panel-section {
+  transform: translateX(100%);
+}
