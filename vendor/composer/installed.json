@@ -1329,6 +1329,72 @@
             "install-path": "../laravel/prompts"
         },
         {
+            "name": "laravel/ui",
+            "version": "v4.6.1",
+            "version_normalized": "4.6.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/ui.git",
+                "reference": "7d6ffa38d79f19c9b3e70a751a9af845e8f41d88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/7d6ffa38d79f19c9b3e70a751a9af845e8f41d88",
+                "reference": "7d6ffa38d79f19c9b3e70a751a9af845e8f41d88",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^9.21|^10.0|^11.0|^12.0",
+                "illuminate/filesystem": "^9.21|^10.0|^11.0|^12.0",
+                "illuminate/support": "^9.21|^10.0|^11.0|^12.0",
+                "illuminate/validation": "^9.21|^10.0|^11.0|^12.0",
+                "php": "^8.0",
+                "symfony/console": "^6.0|^7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.35|^8.15|^9.0|^10.0",
+                "phpunit/phpunit": "^9.3|^10.4|^11.5"
+            },
+            "time": "2025-01-28T15:15:29+00:00",
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Ui\\UiServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Ui\\": "src/",
+                    "Illuminate\\Foundation\\Auth\\": "auth-backend/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel UI utilities and presets.",
+            "keywords": [
+                "laravel",
+                "ui"
+            ],
+            "support": {
+                "source": "https://github.com/laravel/ui/tree/v4.6.1"
+            },
+            "install-path": "../laravel/ui"
+        },
+        {
             "name": "nesbot/carbon",
             "version": "3.9.1",
             "version_normalized": "3.9.1.0",
@@ -3161,49 +3227,6 @@
     ],
     "dev": true,
     "dev-package-names": [
-        "brick/math",
-        "carbonphp/carbon-doctrine-types",
-        "doctrine/inflector",
-        "doctrine/lexer",
-        "egulias/email-validator",
-        "illuminate/bus",
-        "illuminate/collections",
-        "illuminate/conditionable",
-        "illuminate/console",
-        "illuminate/container",
-        "illuminate/contracts",
-        "illuminate/events",
-        "illuminate/filesystem",
-        "illuminate/macroable",
-        "illuminate/pipeline",
-        "illuminate/support",
-        "illuminate/translation",
-        "illuminate/validation",
-        "illuminate/view",
-        "laravel/breeze",
-        "laravel/prompts",
-        "nesbot/carbon",
-        "nunomaduro/termwind",
-        "psr/clock",
-        "psr/container",
-        "psr/simple-cache",
-        "symfony/clock",
-        "symfony/console",
-        "symfony/deprecation-contracts",
-        "symfony/finder",
-        "symfony/http-foundation",
-        "symfony/mime",
-        "symfony/polyfill-ctype",
-        "symfony/polyfill-intl-grapheme",
-        "symfony/polyfill-intl-idn",
-        "symfony/polyfill-intl-normalizer",
-        "symfony/polyfill-mbstring",
-        "symfony/polyfill-php83",
-        "symfony/process",
-        "symfony/service-contracts",
-        "symfony/string",
-        "symfony/translation",
-        "symfony/translation-contracts",
-        "voku/portable-ascii"
+        "laravel/breeze"
     ]
 }

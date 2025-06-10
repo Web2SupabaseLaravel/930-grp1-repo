@@ -63,6 +63,7 @@ class ComposerStaticInitb3e4a427f5c94e0f9a18aba5efe988a4
         ),
         'L' => 
         array (
+            'Laravel\\Ui\\' => 11,
             'Laravel\\Prompts\\' => 16,
             'Laravel\\Breeze\\' => 15,
         ),
@@ -73,6 +74,7 @@ class ComposerStaticInitb3e4a427f5c94e0f9a18aba5efe988a4
             'Illuminate\\Translation\\' => 23,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Pipeline\\' => 20,
+            'Illuminate\\Foundation\\Auth\\' => 27,
             'Illuminate\\Filesystem\\' => 22,
             'Illuminate\\Events\\' => 18,
             'Illuminate\\Contracts\\' => 21,
@@ -185,6 +187,10 @@ class ComposerStaticInitb3e4a427f5c94e0f9a18aba5efe988a4
         array (
             0 => __DIR__ . '/..' . '/psr/clock/src',
         ),
+        'Laravel\\Ui\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/ui/src',
+        ),
         'Laravel\\Prompts\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/prompts/src',
@@ -215,6 +221,10 @@ class ComposerStaticInitb3e4a427f5c94e0f9a18aba5efe988a4
         'Illuminate\\Pipeline\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/pipeline',
+        ),
+        'Illuminate\\Foundation\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/ui/auth-backend',
         ),
         'Illuminate\\Filesystem\\' => 
         array (
