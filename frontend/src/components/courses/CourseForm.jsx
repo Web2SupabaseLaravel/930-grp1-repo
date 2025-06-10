@@ -14,30 +14,13 @@ const CourseForm = () => {
   });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState({ text: '', type: '' });
-  const [isEdit, setIsEdit] = useState(false);
-  const [courseId, setCourseId] = useState(null);
+  const [isEdit] = useState(false);
+  const [courseId] = useState(null);
   const token = localStorage.getItem('token'); // Assuming token is stored here
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const editId = urlParams.get('edit');
-    if (editId) {
-      setIsEdit(true);
-      setCourseId(editId);
-      fetchCourse(editId);
-    }
+    // You can add logic here to fetch a course if editing, e.g., if (isEdit && courseId) fetchCourse(courseId);
   }, []);
-
-  const fetchCourse = async (id) => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/courses/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setCourse(response.data);
-    } catch {
-      setMessage({ text: 'Failed to fetch course details.', type: 'error' });
-    }
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;

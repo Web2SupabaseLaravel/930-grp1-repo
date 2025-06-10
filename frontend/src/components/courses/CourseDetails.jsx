@@ -8,19 +8,18 @@ const CourseDetails = ({ match }) => {
   const token = localStorage.getItem('token'); // Assuming token is stored here
 
   useEffect(() => {
+    const fetchCourse = async (id) => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/courses/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setCourse(response.data);
+      } catch {
+        setMessage({ text: 'Failed to fetch course details. Please ensure you are logged in.', type: 'error' });
+      }
+    };
     fetchCourse(match.params.id);
-  }, [match.params.id]);
-
-  const fetchCourse = async (id) => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/courses/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setCourse(response.data);
-    } catch {
-      setMessage({ text: 'Failed to fetch course details. Please ensure you are logged in.', type: 'error' });
-    }
-  };
+  }, [match.params.id, token]);
 
   if (!course) return <div>Loading...</div>;
 
