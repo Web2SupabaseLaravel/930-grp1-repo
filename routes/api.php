@@ -27,8 +27,11 @@ Route::get('/test', function () {
 
 
 
+
+
 Route::get('/latest-courses', [LastestcourseController::class, 'apiIndex']);
 Route::get('/enrollments', [EnrollmentController::class, 'index']);
+Route::get('/enrollments/{student_id}/{course_id}', [EnrollmentController::class, 'show']);
 Route::post('/enrollments', [EnrollmentController::class, 'store']);
 Route::delete('/enrollments/{student_id}/{course_id}', [EnrollmentController::class, 'destroy']);
 Route::patch('/enrollments/{student_id}/{course_id}', [EnrollmentController::class, 'update']);
