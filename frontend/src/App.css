@@ -1,0 +1,36 @@
+body {
+  background-color: #F8F9FA;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.card {
+  border-radius: 8px;
+  border: none;
+}
+
+.btn {
+  font-weight: 500;
+  padding: 8px 16px;
+}
+
+.btn-success {
+  background-color: #27AE60;
+  border-color: #27AE60;
+}
+
+.btn-primary {
+  background-color: #2C3E50;
+  border-color: #2C3E50;
+}
+
+.btn-danger {
+  background-color: #E74C3C;
+  border-color: #E74C3C;
+}
+
+hr {
+  margin-top: 0;
+  margin-bottom: 20px;
+  opacity: 0.2;
+}
