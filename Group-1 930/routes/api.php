@@ -48,3 +48,13 @@ Route::get('/enrollments/{student_id}/{course_id}', [EnrollmentController::class
 Route::post('/enrollments', [EnrollmentController::class, 'store']);
 Route::delete('/enrollments/{student_id}/{course_id}', [EnrollmentController::class, 'destroy']);
 Route::patch('/enrollments/{student_id}/{course_id}', [EnrollmentController::class, 'update']);
+
+//Mohammad
+Route::get('/courses/count', [CourseController::class, 'countCourses']);
+Route::get('/website-users/count', [WebsiteUserController::class, 'countUsers']);
+Route::get('/enrollments/count', [EnrollmentController::class, 'countEnrollments']);
+Route::get('/website-users', [WebsiteUserController::class, 'index']);          
+Route::post('/website-users', [WebsiteUserController::class, 'store']);        
+Route::get('/website-users/{id}', [WebsiteUserController::class, 'show']);     
+Route::put('/website-users/{id}', [WebsiteUserController::class, 'update']);   
+Route::delete('/website-users/{id}', [WebsiteUserController::class, 'destroy']);
